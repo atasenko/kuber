@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: multitool
+  name: nginx-probe
   labels:
-    app: multitool
+    app: nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: multitool
+      app: nginx
   template:
     metadata:
       labels:
-        app: multitool
+        app: nginx
     spec:
       containers:
-      - name: multitool
-        image: wbitt/network-multitool
+      - name: nginx
+        image: nginx
         ports:
         - containerPort: 80
