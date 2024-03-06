@@ -2,6 +2,7 @@
 1. Создан Deployment приложения из двух контейнеров - [nginx-multitool](deployments/nginx-multitool.yaml).  
 На выходе один под:  
 ![1](img/kuber03_01.png)  
+Проблема с пересекающимися портами решена использованием версии multitool для openshift слушающей на других портах.  
 2. Изменил параметр replicas на 2, выполнил k apply -f.  
 ![2](img/kuber03_02.png)  
 3. Количество продемонстрировал выше.  
