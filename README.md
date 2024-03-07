@@ -13,4 +13,8 @@
 ![pod-services](img/kuber03_04.png)  
 
 ### Задание 2. Создать Deployment и обеспечить старт основного контейнера при выполнении условий.  
-1. 
+1. Создан Deployment [nginx-probe](deployments/nginx-probe.yaml) с init-контейнером ожидающим появления DNS имени сервиса.  
+2. Nginx не стартует, busybox в логах выводит указанное сообщение, ждет доступности сервиса.  
+![not ready](img/kuber03_05.png)  
+3. [Сервис](services/nginx-probe.yaml) создан, запущен, runtime-контейнер запустился.  
+![ready](img/kuber03_06.png)  

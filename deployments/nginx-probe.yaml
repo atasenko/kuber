@@ -19,3 +19,7 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
+      initContainers:
+      - name: check-service
+        image: busybox
+        command: ['sh', '-c', 'until nslookup nginx-probe.default.svc.cluster.local; do echo "Waiting for nginx-probe service"; sleep 2; done;']
