@@ -1,9 +1,0 @@
----
-k8s:
-  hosts:
-    %{~ for i in k8s ~}
-    ${i["name"]}:
-      ansible_host: ${i["network_interface"][0]["nat_ip_address"]}
-      ansible_user: ubuntu
-%{~ endfor ~}
-
