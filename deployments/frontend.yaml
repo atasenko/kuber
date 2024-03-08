@@ -1,25 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-mt
+  name: frontend
   labels:
-    app: nginx-mt
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-mt
+      app: nginx
   template:
     metadata:
       labels:
-        app: nginx-mt
+        app: nginx
     spec:
       containers:
       - name: nginx
         image: nginx
         ports:
         - containerPort: 80
-      - name: multitool
-        image: wbitt/network-multitool:openshift
-        ports:
-        - containerPort: 1180
