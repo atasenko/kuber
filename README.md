@@ -6,4 +6,7 @@
 ![it works](img/kuber05_01.png)  
 
 ### Задание 2. Создать Ingress и обеспечить доступ к приложениям снаружи кластера.  
-1. Создан отдельный Service [node-port](ingress/ingress.yaml).  
+1. Контроллер в microk8s включен (microk8s enable ingress).  
+2. Создан [Ingress](ingress/ingress.yaml). По-умолчанию конфигурация ingress попадала в namespace ingress к ingress-контроллеру и не могла работать с объектами в default. Дописал явно namespace в конфиг и указал его при запуске kubectl apply.  
+3. Работает:  
+![ingress](img/kuber05_02.png)
