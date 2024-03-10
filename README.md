@@ -1,12 +1,11 @@
-### Задание 1. Создать Deployment приложений backend и frontend.  
-1. Создан Deployment приложения [frontend](deployments/frontend.yaml) из образа nginx.  
-2. Создан Deployment приложения [backend](deployments/backend.yaml) из образа multitool.
-3. Созданы сервисы для доступа к приложениям внутри кластера [frontend](services/frontend.yaml), [backend](services/backend.yaml).  
-4. При помощи curl приложения могут связаться друг с другом в любом направлении:  
-![it works](img/kuber05_01.png)  
+### Задание 1. Создать Deployment приложения, состоящего из двух контейнеров и обменивающихся данными.  
+1. Создан Deployment приложения [write-read](deployments/write-read.yaml) из контейнеров busybox и multitool.  
+2. Каждые 5 секунд busybox пишет новую строку в файл на хосте /var/k8s-data/file смонтированный в /output/file (в коммите цикл будет постоянно перезаписывать первую строку чтоб файл не рос до бесконечности).  
+3. Multitool может читать тот же файл смонтированный по другому пути /input/file  
+![write-read](img/kuber2_1_01.png)  
 
-### Задание 2. Создать Ingress и обеспечить доступ к приложениям снаружи кластера.  
-1. Контроллер в microk8s включен (microk8s enable ingress).  
-2. Создан [Ingress](ingress/ingress.yaml). По-умолчанию конфигурация ingress попадала в namespace ingress к ingress-контроллеру и не могла работать с объектами в default. Дописал явно namespace в конфиг и указал его при запуске kubectl apply.  
-3. Работает:  
-![ingress](img/kuber05_02.png)
+### Задание 2. Создать DaemonSet приложения, которое может прочитать логи ноды.  
+1. Создан DaemonSet [logs-reader](daemonset/logs-reader.yaml) из приложения multitool.  
+2. Доступ предоставлен только к файлу (не всей папке) /var/log/syslog, ограничен только чтением, смонтирован в подах как /logs/node-syslog.  
+3. Файлы (сделал кластер из двух нод) читаются изнутри подов, содержимое отличается:  
+![syslog](img/kuber2_1_02.png)
