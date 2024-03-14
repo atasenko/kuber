@@ -9,3 +9,8 @@
 ![file exists](img/kuber2_2_03.png)  
 
 ### Задание 2. Создать Deployment приложения, которое может хранить файлы на NFS с динамическим созданием PV.  
+1. NFS-сервер включен, настроен доступ из сети ноды к папке /srv/nfs, включен csi-driver в microk8s.  
+![nfs enabled](img/kuber2_2_04.png)  
+2. Созданы [storageClass](storageClasses/dynamic-nfs.yaml) для динамического выделения места и [volumeClaim](PVCs/dynamic-nfs.yaml), Deployment приложения [multitool](deployments/dynamic-pv.yaml) с автоматически подключенным PV с сервера NFS.  
+3. Файлы можно писать и читать из пода и на хосте.
+![it works](img/kuber2_2_05.png)  

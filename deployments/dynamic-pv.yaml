@@ -1,34 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: write-read
+  name: dynamic-pv
   labels:
-    app: write-read
+    app: dynamic-pv
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: write-read
+      app: dynamic-pv
   template:
     metadata:
       labels:
-        app: write-read
+        app: dynamic-pv
     spec:
       volumes:
-      - name: vol
-        hostPath:
-          path: /var/k8s-data
+      - name: dynamic-nfs
+        persistentVolumeClaim:
+          claimName: dynamic-nfs
       containers:
-      - name: vol-write
-        image: busybox
-        command: ['sh', '-c', 'i=0; while true; do echo "New line" > /output/file; sleep 5; done']
-        volumeMounts:
-        - name: vol
-          mountPath: /output
-      - name: vol-read
+      - name: multitool
         image: wbitt/network-multitool
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: vol
-          mountPath: /input
+        - name: dynamic-nfs
+          mountPath: /storage
